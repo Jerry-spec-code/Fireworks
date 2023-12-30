@@ -15,6 +15,8 @@
         SCREEN_WIDTH = options.width,
         SCREEN_HEIGHT = options.height;
 
+    var explosionAudio = new Audio('explosion.mp3');
+
     // cache the sounds if the plugin has been configured to use soudns
     var sounds = [], audio;
     if (options.sound) {
@@ -130,9 +132,15 @@
             min = Math.ceil(min);
             max = Math.floor(max);
             return Math.floor(Math.random() * (max - min + 1)) + min;
-          }(0, 2);
-          audio.src = sounds[randomNumber].prefix + sounds[randomNumber].data;
-          audio.play();
+          }(0, 3);
+          if (randomNumber < 3) {
+            audio.src = sounds[randomNumber].prefix + sounds[randomNumber].data;
+            audio.play();
+          }
+          else {
+            explosionAudio.currentTime = 0;
+            explosionAudio.play();
+          }
         }
 
         var count = Math.random() * 10 + 80;
